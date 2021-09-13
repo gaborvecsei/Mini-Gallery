@@ -2,6 +2,8 @@
 
 A minimal webui image viewer to quick image inspection
 
+<img src="art/mini_gallery_pets_example.png" width="600" alt="Example of mini gallery"></a>
+
 ```
 streamlit run gallery.py
 ```

@@ -6,6 +6,8 @@ from typing import List, Tuple
 from PIL import Image
 import streamlit as st
 
+VERSION = "0.1.0"
+
 IMAGE_EXTENSIONS = ("jpg", "jpeg", "png")
 
 # With these states we can avoid looking for files over and over again in a folder if the path is not changed
