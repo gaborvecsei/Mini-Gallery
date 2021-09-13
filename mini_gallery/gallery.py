@@ -92,7 +92,7 @@ def app():
                      """)
     st.sidebar.markdown("Created by *[Gabor Vecsei](https://gaborvecsei.com)*")
 
-    image_paths_text_box = st.text_area("Image paths")
+    image_paths_text_box = st.text_area("Image path(s)")
 
     st.sidebar.header("Global settings")
     col_1, col_2 = st.sidebar.columns(2)
