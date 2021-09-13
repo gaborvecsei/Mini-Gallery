@@ -1,6 +1,6 @@
 # Mini Gallery
 
-A minimal webui image viewer to quick image inspection
+A minimal webui image viewer for quick image inspection on remote servers
 
 <img src="art/mini_gallery_pets_example.png" width="600" alt="Example of mini gallery"></a>
 
