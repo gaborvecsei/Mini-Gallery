@@ -92,7 +92,7 @@ def app():
                         /data/my_data/dog.png
                         ```
                      """)
-    st.sidebar.markdown("Created by *[Gabor Vecsei](https://gaborvecsei.com)*")
+    st.sidebar.markdown(f"Created by *[Gabor Vecsei](https://gaborvecsei.com)* v{VERSION}")
 
     image_paths_text_box = st.text_area("Image path(s)")
 
