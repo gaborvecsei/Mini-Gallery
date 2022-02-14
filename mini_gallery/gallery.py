@@ -8,7 +8,9 @@ import streamlit as st
 
 VERSION = "0.1.0"
 
-IMAGE_EXTENSIONS = ("jpg", "jpeg", "png")
+IMAGE_EXTENSIONS = ("jpg", "jpeg", "png", "bmp")
+VIDEO_EXTENSIONS = ("mp4", "avi", "mov", "wmv", "webm", "flv")
+EXTENSIONS = IMAGE_EXTENSIONS + VIDEO_EXTENSIONS
 
 # With these states we can avoid looking for files over and over again in a folder if the path is not changed
 if "prev_folder" not in st.session_state:
@@ -20,9 +22,9 @@ if "found_paths" not in st.session_state:
 def find_images(base_folder, recoursive: bool) -> List[Path]:
     base_folder = Path(base_folder)
     if recoursive:
-        image_path_generators = [base_folder.glob(f"**/*.{e}") for e in IMAGE_EXTENSIONS]
+        image_path_generators = [base_folder.glob(f"**/*.{e}") for e in EXTENSIONS]
     else:
-        image_path_generators = [base_folder.glob(f"*.{e}") for e in IMAGE_EXTENSIONS]
+        image_path_generators = [base_folder.glob(f"*.{e}") for e in EXTENSIONS]
     image_path_generator = itertools.chain(*image_path_generators)
     return list(image_path_generator)
 
@@ -31,7 +33,7 @@ def filter_valid_image_paths(image_paths: List[Path]) -> Tuple[List[Path], List[
     valid_paths = []
     invalid_paths = []
     for p in image_paths:
-        if p.exists() and not p.is_dir() and p.suffix[1:] in IMAGE_EXTENSIONS:
+        if p.exists() and not p.is_dir() and p.suffix[1:] in EXTENSIONS:
             valid_paths.append(p)
         else:
             invalid_paths.append(p)
@@ -41,7 +43,12 @@ def filter_valid_image_paths(image_paths: List[Path]) -> Tuple[List[Path], List[
 def visualize_image_paths(image_paths: list, nb_columns: int, print_paths: bool):
     image_cols = itertools.cycle(st.columns(int(nb_columns)))
     for i, p in enumerate(image_paths):
-        next(image_cols).image(Image.open(p), use_column_width=True, caption=f"ID {i}")
+        file_extension = p.suffix[1:]
+        if file_extension in IMAGE_EXTENSIONS:
+            next(image_cols).image(str(p), use_column_width=True, caption=f"ID {i}")
+        elif file_extension in VIDEO_EXTENSIONS:
+            next(image_cols).video(str(p))
+
 
     if print_paths:
         st.text("")
